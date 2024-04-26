@@ -1,6 +1,5 @@
 name: Build OpenWrt x86-64
 on: 
-  push:
   workflow_dispatch:
   schedule:
     - cron: 0 20 * * *

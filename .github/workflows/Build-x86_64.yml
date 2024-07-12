@@ -75,8 +75,9 @@ jobs:
         LATEST_BRANCH=$(git branch -r | sed 's/origin\///'|tail -n1)
         LATEST_TAG=$(git tag | grep -v 'rc'|tail -n1)
         echo 选择最新分支：$LATEST_BRANCH
-        echo 选择最新非RC标签：$LATEST_TAG
-        git checkout $LATEST_TAG
+        # echo 选择最新非RC标签：$LATEST_TAG
+        # git checkout $LATEST_TAG
+        git checkout $LATEST_BRANCH
         rm -rf package/helloworld
         git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
         git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
@@ -116,6 +117,7 @@ jobs:
     - name: 打包Bin目录
       run: |
         zip -q -r OpenWRT_Bin_v$(date +"%Y.%m.%d").zip openwrt/bin
+    # 🔗 标签: ${{ steps.download_code.outputs.LATEST_TAG }}
     - name: 生成发布标签
       id: tag
       run: |
@@ -127,8 +129,6 @@ jobs:
         📂 源码: ${{ steps.download_code.outputs.repo_url }}
 
         🌳 分支: ${{ steps.download_code.outputs.latest_branch }}
-
-        🔗 标签: ${{ steps.download_code.outputs.LATEST_TAG }}
 
         ⏱️ 编译时间: $(date +"%Y年%m月%d日%H时%M分")
 

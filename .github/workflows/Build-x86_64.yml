@@ -81,6 +81,7 @@ jobs:
         git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
         git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
         git clone https://github.com/openwrt/packages.git ../gogogo
+        git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
         sed -i 's/192.168.1.1/10.10.10.5/g' package/base-files/files/bin/config_generate
         sed -i 's/192.168./10.10./g' package/base-files/files/bin/config_generate
         sed -i 's/root:::0:99999:7:::/root:$1$DLXGbdIi$CnUIT65bKyIhDXfR520dZ.:0:0:99999:7:::/g' package/base-files/files/etc/shadow
@@ -98,6 +99,7 @@ jobs:
       run: |
         cd openwrt
         mv ../config/x86_64.config .config
+        make defconfig
     - name: 预下载软件包
       run: |
         cd openwrt 
@@ -146,5 +148,6 @@ jobs:
         body_path: release.txt
         files: |
           openwrt/bin/targets/x86/64/*.*
+          openwrt/bin/packages/x86_64/base/*passwall*
           openwrt/bin/packages/x86_64/base/*ssr-plus*
           OpenWRT_Bin*.zip

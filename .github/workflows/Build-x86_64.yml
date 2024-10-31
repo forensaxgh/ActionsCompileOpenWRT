@@ -145,7 +145,7 @@ jobs:
         🔒 密码: @Forensax " >> release.txt
 
     - name: 自动发布固件到 Releases
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v4
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt

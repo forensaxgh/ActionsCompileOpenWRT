@@ -113,6 +113,8 @@ jobs:
       run: |
         wget -O "OpenWRT_Bin" https://github.com/Forensax/ActionsCompileOpenWRT/releases/download/v2024.10.30/OpenWRT_Bin_v2024.10.30.zip
         unzip -d openwrt OpenWRT_Bin
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name : 上传固件
       uses: actions/upload-artifact@master
       with:
@@ -121,7 +123,6 @@ jobs:
     - name: 打包Bin目录
       run: |
         zip -q -r OpenWRT_Bin_v$(date +"%Y.%m.%d").zip openwrt/bin
-    # 
     - name: 生成发布标签
       id: tag
       run: |
